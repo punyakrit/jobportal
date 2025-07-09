@@ -1,12 +1,15 @@
+'use client'
 import Navbar from '@/components/ui/Navbar'
 import React from 'react'
-import { createClient } from '@/utils/supabase/server'
-import { headers } from 'next/headers'
+import { useUser } from '@/context/user'
 
-async function page() {
+function page() {
+  const { user } = useUser();
+
   return (
     <div>
       <Navbar/>
+      {JSON.stringify(user)}
     </div>
   )
 }
