@@ -4,7 +4,7 @@ import SignInButton from "../landing/SignInButton";
 
 function Navbar() {
   return (
-    <nav className=" grid grid-cols-2 lg:grid-cols-3 items-center mt-4 border-b border-gray-200 h-14  px-4 lg:px-8">
+    <nav className=" grid grid-cols-2 lg:grid-cols-3 items-center  border-b border-gray-200 h-14 py-2  px-4 lg:px-8">
       <div className="text-3xl font-semibold font-zain cursor-pointer">Remotix</div>
       
       <div className="hidden lg:flex gap-6 justify-center items-center">
