@@ -1,14 +1,16 @@
 'use client'
+import HeroPage from '@/components/landing/HeroPage'
+import Banner from '@/components/landing/Banner'
 import Navbar from '@/components/ui/Navbar'
 import React from 'react'
-// import { useUser } from '@/context/user'
 
 function page() {
-  // const { user } = useUser();
 
   return (
-    <div className=''>
+    <div className=' '>
+      <Banner/>
       <Navbar/>
+      <HeroPage/>
     </div>
   )
 }
