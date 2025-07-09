@@ -1,6 +1,7 @@
 'use server'
 
 import { createClient } from "@/utils/supabase/server"
+import { revalidatePath } from "next/cache";
 import { headers } from 'next/headers';
 import { redirect } from "next/navigation";
 
@@ -17,8 +18,14 @@ export async function oAuth(){
   if (error) {
     return redirect('/signin?message=Could not redirect in OAuth');
   }
-
+  revalidatePath("/dashboard");
   return redirect(data.url);
-
+  
 }
 
+export async function signOut(){
+  const supabase = await createClient();
+  await supabase.auth.signOut();
+  revalidatePath("/");
+  redirect("/");
+} 

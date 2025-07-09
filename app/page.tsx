@@ -1,15 +1,14 @@
 'use client'
 import Navbar from '@/components/ui/Navbar'
 import React from 'react'
-import { useUser } from '@/context/user'
+// import { useUser } from '@/context/user'
 
 function page() {
-  const { user } = useUser();
+  // const { user } = useUser();
 
   return (
-    <div>
+    <div className=''>
       <Navbar/>
-      {JSON.stringify(user)}
     </div>
   )
 }
