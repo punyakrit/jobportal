@@ -1,7 +1,9 @@
 import Navbar from '@/components/ui/Navbar'
 import React from 'react'
+import { createClient } from '@/utils/supabase/server'
+import { headers } from 'next/headers'
 
-function page() {
+async function page() {
   return (
     <div>
       <Navbar/>

@@ -1,18 +1,33 @@
 "use client"
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { Button } from './button'
 import axios from 'axios'
+import { oAuth } from '@/app/actions/auth'
+import { createClient } from '@/utils/supabase/client'
+import { User } from '@supabase/supabase-js'
 
 function Navbar() {
+  const [user, setUser] = useState<User | null>(null)
 
-    async function login(){
-        const response = await axios.post('/api/v1/auth')
-        console.log(response.data)
+  useEffect(()=>{
+    const getUser = async()=>{
+      const supabase = createClient()
+      const { data: { user }, error } = await supabase.auth.getUser()
+      if(error){
+        console.error(error)
+      }else{
+        setUser(user)
+      }
     }
+    getUser()
+  },[])
+
 
   return (
     <div>
-        <Button onClick={login}> Login</Button>
+        <Button onClick={async()=>{
+            await oAuth()
+        }}> {user ? "Logout" : "Login"}</Button>
     </div>
   )
 }
