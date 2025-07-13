@@ -18,7 +18,8 @@ export async function oAuth(){
   if (error) {
     return redirect('/signin?message=Could not redirect in OAuth');
   }
-  revalidatePath("/dashboard");
+  console.log(data)
+  revalidatePath("/");
   return redirect(data.url);
   
 }
