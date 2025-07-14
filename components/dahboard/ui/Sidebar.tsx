@@ -1,6 +1,6 @@
 import { createClient } from "@/utils/supabase/server";
 import axios from "axios";
-import { Bookmark, Briefcase, Home, LogOut, Paperclip, Settings } from "lucide-react";
+import { Bookmark, Briefcase, Home, LogOut, Paperclip, Search, Settings } from "lucide-react";
 import Link from "next/link";
 import { redirect } from "next/navigation";
 import React from "react";
@@ -13,9 +13,9 @@ const sidebarItems = [
     href: "/dashboard",
   },
   {
-    icon: <Briefcase className="w-6 h-6 text-black" />,
-    label: "Job Listing",
-    href: "/dashboard/job-listing",
+    icon: <Search className="w-6 h-6 text-black" />,
+    label: "Find Jobs",
+    href: "/dashboard/find-jobs",
   },
   {
     icon: <Bookmark className="w-6 h-6 text-black" />,
@@ -40,7 +40,6 @@ async function Sidebar() {
   const supabase = await createClient()
   const { data: { user }, error } = await supabase.auth.getUser();
   const response = await axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/v1/plan?user_id=${user?.id}`)
-  console.log(response)
   return (
     <div className="bg-white h-screen w-full flex flex-col">
       <div className="border-b flex items-center gap-5 p-2 px-6 pt-4">
