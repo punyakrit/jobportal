@@ -16,6 +16,13 @@ export async function POST(req : NextRequest){
             created_at: new Date().toISOString(),
             updated_at: new Date().toISOString()
         })
+
+        await supabase.schema('public').from('credit_history').insert({
+            user_id: body.id,
+            change: +50,
+            reason: 'Initial credits',
+            created_at: new Date().toISOString(),
+        })
         return NextResponse.json({message: "User created"})
     }
     return NextResponse.json({message: "User already exists"})

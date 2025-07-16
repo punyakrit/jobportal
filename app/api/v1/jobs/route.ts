@@ -64,6 +64,13 @@ export async function POST(request: NextRequest) {
         credits: credits - response.data.length
     }).eq('user_id', userId);
 
+    await supabase.schema('public').from('credit_history').insert({
+        user_id: userId,
+        change: -response.data.length,
+        reason: 'Jobs Search',
+        created_at: new Date().toISOString(),
+    })
+
     if (jobsError) {
         console.log(jobsError);
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

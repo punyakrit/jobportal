@@ -26,7 +26,7 @@ function SignInButton() {
       </Button>
       <Avatar>
         <AvatarImage src={user?.user_metadata.avatar_url} className="rounded-full h-8 w-8" />
-        <AvatarFallback>{user?.user_metadata.name?.charAt(0)}</AvatarFallback>
+        <AvatarFallback className="rounded-full h-8 w-8">{user?.user_metadata.name?.charAt(0)}</AvatarFallback>
       </Avatar>
     </div>
   );

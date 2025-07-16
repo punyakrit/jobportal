@@ -1,6 +1,6 @@
 'use client'
-import HeroPage from '@/components/landing/HeroPage'
 import Banner from '@/components/landing/Banner'
+import HeroPage from '@/components/landing/HeroPage'
 import Navbar from '@/components/ui/Navbar'
 import React from 'react'
 
@@ -14,5 +14,6 @@ function page() {
     </div>
   )
 }
+
 
 export default page

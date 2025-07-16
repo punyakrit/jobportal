@@ -1,22 +1,56 @@
+'use client'
+
 import { Input } from "@/components/ui/input";
-import { createClient } from "@/utils/supabase/server";
+import { createClient } from "@/utils/supabase/client";
 import axios from "axios";
-import React from "react";
+import React, { useEffect, useState } from "react";
+import { useJobSearch } from "@/context/JobSearchContext";
 
-async function Header() {
-  const supabase = await createClient();
-  const {
-    data: { user },
-    error,
-  } = await supabase.auth.getUser();
-  const response = await axios.post(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/v1/user-validate`,
-    { id: user?.id }
-  );
+function Header() {
+  const [user, setUser] = useState<any>(null);
+  const [credits, setCredits] = useState<any>({ data: { credits: 0 } });
+  const [loading, setLoading] = useState(true);
+  const { jobsFound } = useJobSearch();
 
-  const credits = await axios.get(
-    `${process.env.NEXT_PUBLIC_API_URL}/api/v1/plan?user_id=${user?.id}`
-  );
+  useEffect(() => {
+    const fetchUserData = async () => {
+      try {
+        const supabase = createClient();
+        const { data: { user }, error } = await supabase.auth.getUser();
+        
+        if (user) {
+          setUser(user);
+          
+          const response = await axios.post(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/v1/user-validate`,
+            { id: user.id }
+          );
+
+          const creditsResponse = await axios.get(
+            `${process.env.NEXT_PUBLIC_API_URL}/api/v1/plan?user_id=${user.id}`
+          );
+          
+          setCredits(creditsResponse);
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchUserData();
+  }, [jobsFound]);
+
+  if (loading) {
+    return (
+      <div className="w-full bg-white border border-gray-200 my-2 p-6 rounded-2xl shadow-sm">
+        <div className="flex items-center justify-between">
+          <div className="font-extrabold text-green-500 text-2xl">Loading...</div>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="w-full bg-white border border-gray-200 my-2 p-6 rounded-2xl shadow-sm">
@@ -29,7 +63,7 @@ async function Header() {
           ) : (
             <span>Good Evening</span>
           )}
-          <span> {user?.user_metadata?.full_name.split(" ")[0]}!</span>
+          <span> {user?.user_metadata?.full_name?.split(" ")[0]}!</span>
         </div>
         <div className="flex items-center gap-4">
           <div className="relative">

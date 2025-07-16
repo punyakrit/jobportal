@@ -1,21 +1,36 @@
 import Header from "@/components/dahboard/ui/Header";
 import Sidebar from "@/components/dahboard/ui/Sidebar";
+import { JobSearchProvider } from "@/context/JobSearchContext";
+import { UserProvider } from "@/context/user";
+import { ReactNode } from "react";
+import { createClient } from '@/utils/supabase/server';
 
-
-export default function Layout({
+export default async function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const supabase = await createClient();
+  const { data: { user } } = await supabase.auth.getUser();
+  const userId = user?.id || "";
+
   return (
-    <div className='grid grid-cols-12 '>
-      <div className='col-span-2'>
-        <Sidebar/>
-      </div>
-      <div className='col-span-10 p-4 overflow-auto'>
-        <Header/>
-        {children}
-      </div>
-    </div>
+    <UserProvider user={user}>
+      <JobSearchProvider userId={userId}>
+        <div className='flex h-screen'>
+          <div className='w-64 flex-shrink-0'>
+            <Sidebar/>
+          </div>
+          <div className='flex-1 flex flex-col overflow-hidden'>
+            <div className="px-4 pt-4">
+              <Header/>
+            </div>
+            <div className='flex-1 overflow-auto px-2'>
+              {children}
+            </div>
+          </div>
+        </div>
+      </JobSearchProvider>
+    </UserProvider>
   );
 }
