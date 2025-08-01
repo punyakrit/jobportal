@@ -11,7 +11,7 @@ export async function oAuth(){
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `localhost:3000/auth/callback`,
+      redirectTo: `https://jobportal-nu-three.vercel.app/auth/callback`,
     },
   });
 

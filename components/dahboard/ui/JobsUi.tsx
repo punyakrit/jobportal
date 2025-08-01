@@ -29,7 +29,7 @@ function JobsUi() {
         }
         
         try {
-            const response = await axios.get(`http://localhost:3000/api/v1/jobs?page=${page}&limit=${limit}&user_id=${user.id}`);
+            const response = await axios.get(`https://jobportal-nu-three.vercel.app/api/v1/jobs?page=${page}&limit=${limit}&user_id=${user.id}`);
             const newJobs = response.data.data;
             
             if (isLoadMore) {

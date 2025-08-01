@@ -89,7 +89,7 @@ export const JobSearchProvider: React.FC<{ children: ReactNode, userId: string }
         job_post_time: filters.job_post_time === 'any' ? '' : filters.job_post_time
       }
 
-      const response = await fetch('http://localhost:3000/api/v1/jobs', {
+      const response = await fetch('https://jobportal-nu-three.vercel.app/api/v1/jobs', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
