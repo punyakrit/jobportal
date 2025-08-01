@@ -1,3 +1,5 @@
+import Link from 'next/link'
+
 export default function AuthCodeError() {
   return (
     <div className="flex-1 flex flex-col w-full px-8 sm:max-w-md justify-center gap-2">
@@ -6,12 +8,12 @@ export default function AuthCodeError() {
         <p className="text-gray-600 mb-4">
           There was an error processing your authentication. Please try signing in again.
         </p>
-        <a
+        <Link
           href="/"
           className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
         >
           Return to Home
-        </a>
+        </Link>
       </div>
     </div>
   )
