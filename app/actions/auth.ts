@@ -7,11 +7,13 @@ import { redirect } from "next/navigation";
 
 export async function oAuth(){
     const supabase = await createClient();
+    const origin = (await headers()).get("origin");
 
   const { data, error } = await supabase.auth.signInWithOAuth({
     provider: 'google',
     options: {
-      redirectTo: `https://jobportal-nu-three.vercel.app/auth/callback`,
+      redirectTo: `${origin}/auth/callback`,
+
     },
   });
 
