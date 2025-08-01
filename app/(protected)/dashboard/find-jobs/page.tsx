@@ -6,8 +6,9 @@ import { Button } from '@/components/ui/button'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Label } from '@/components/ui/label'
 import { Search, MapPin, Filter, Clock, Users, Building2, ExternalLink } from 'lucide-react'
-import { useJobSearch } from '@/context/JobSearchContext'
+import { useJobSearch, Job } from '@/context/JobSearchContext'
 import JobComponent from '@/components/dahboard/ui/JobComponent'
+import { sampleData } from '@/lib/SampleData'
 
 function page() {
   const { filters, jobs, loading, error, updateFilters, searchJobs, clearFilters } = useJobSearch()
@@ -205,11 +206,14 @@ function page() {
             <div className='flex items-center justify-center h-64'>
               <div className='text-gray-500'>Loading jobs...</div>
             </div>
-          ) : jobs.length > 0 ? (
+          ) : jobs.length >= 0 ? (
             <div className='space-y-4 max-h-[calc(100vh-300px)] overflow-y-auto'>
               {jobs.map((job) => (
                 <JobComponent key={job.job_id} job={job} />
               ))}
+              {/* {sampleData.data.map((job: Job) => (
+                <JobComponent key={job.job_id} job={job} />
+              ))} */}
             </div>
           ) : !loading && (
             <div className='flex items-center justify-center h-64'>

@@ -3,6 +3,7 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react'
 
 export interface Job {
+  company_data: Job
   job_id: string
   job_url: string
   job_title: string
@@ -11,7 +12,7 @@ export interface Job {
   location: string
   time_posted: string
   num_applicants: string
-  salary_range: string
+  salary_range: string | null
   job_description: string
   job_description_raw_html: string
   company_logo_url: string
